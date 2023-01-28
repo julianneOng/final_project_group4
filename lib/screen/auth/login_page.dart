@@ -89,17 +89,17 @@ class _LoginPageState extends State<LoginPage> {
     var username = userNameController.text;
     var password = passwordController.text;
 
-    for (var i = 0; i <= accounts.length; i++) {
-      if (username == accounts[i]['username'] &&
-          password == accounts[i]['password']) {
-        _showMsg('Login Success');
-        account.add(accounts[i]);
-        await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => HomePage(data: account))
-        );
-        break;
-      }
+      for (var i = 0; i <= accounts.length; i++) {
+        if (username == accounts[i]['username'] &&
+            password == accounts[i]['password']) {
+          _showMsg('Login Success');
+          account.add(accounts[i]);
+          await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage(data: account))
+          );
+          break;
+        }
     }
 
   }
@@ -138,13 +138,13 @@ class _LoginPageState extends State<LoginPage> {
             child: ListView(
                 padding: const EdgeInsets.all(30),
                 children: [
-                  ChangeColors(
-                      hue: 0.55,
-                      brightness: 0.2,
-                      saturation: 0.1,
-                      child: Image.asset("assets/logo.png",
-                          width: 300,
-                          height: 300)
+                ChangeColors(
+                    hue: 0.55,
+                    brightness: 0.2,
+                    saturation: 0.1,
+                  child: Image.asset("assets/logo.png",
+                      width: 300,
+                      height: 300)
                   ),
                   const Text("ANONYMITY", style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
                   const SizedBox(height: 25),
@@ -154,9 +154,9 @@ class _LoginPageState extends State<LoginPage> {
                     controller: userNameController,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
-                      labelText: "Username",
-                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
+                        labelText: "Username",
+                        contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
                     ),
                     validator: (value){
                       return (value == '')? "Input Name" : null;
@@ -180,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                         loginData();
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent
+                        backgroundColor: Colors.greenAccent
                       ),
                       child: const Text("Sign In", style: TextStyle(color: Colors.black, fontSize: 17))
                   ),
@@ -266,33 +266,34 @@ class _LoginPageState extends State<LoginPage> {
             actions: [
               TextButton(
                 onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    Navigator.pop(context);
-                    currentIndex = accounts.indexOf('id', 0);
-                    DataModel dataLocal = DataModel(
-                      firstname: firstNameController.text,
-                      lastname: lastNameController.text,
-                      username: userNameController.text,
-                      password: passwordController.text,
-                      email: emailController.text,
-                    );
-                    db.insertData(dataLocal);
-                    setState(() {
-                      postAccount(
-                          currentIndex,
-                          firstNameController.text,
-                          lastNameController.text,
-                          userNameController.text,
-                          passwordController.text,
-                          emailController.text
-                      );
-                    });
-                    firstNameController.clear();
-                    lastNameController.clear();
-                    userNameController.clear();
-                    passwordController.clear();
-                    emailController.clear();
-                  }
+                   if (formKey.currentState!.validate()) {
+                     Navigator.pop(context);
+                     currentIndex = accounts.indexOf('id', 0);
+                     DataModel dataLocal = DataModel(
+                       firstname: firstNameController.text,
+                       lastname: lastNameController.text,
+                       username: userNameController.text,
+                       password: passwordController.text,
+                       email: emailController.text,
+                     );
+                     db.insertData(dataLocal);
+                     print(db);
+                     setState(() {
+                       postAccount(
+                           currentIndex,
+                           firstNameController.text,
+                           lastNameController.text,
+                           userNameController.text,
+                           passwordController.text,
+                           emailController.text
+                       );
+                     });
+                     firstNameController.clear();
+                     lastNameController.clear();
+                     userNameController.clear();
+                     passwordController.clear();
+                     emailController.clear();
+                   }
                 },
                 child: const Center(
                   child: Text("Sign Up"),
@@ -301,6 +302,6 @@ class _LoginPageState extends State<LoginPage> {
             ],
           );
         }
-    );
+      );
   }
 }
