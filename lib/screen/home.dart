@@ -1,10 +1,10 @@
+import 'package:finalproject/csidebar/collapsible_sidebar.dart';
+import 'package:finalproject/screen/create_post.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert' as convert;
-import '../csidebar/collapsible_sidebar.dart';
 import 'add_comments.dart';
-import 'create_post.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ListTile(
                         title: Text(
-                            '${posts[index]['message']}'
+                          '${posts[index]['message']}'
                         ),
                       ),
                       const SizedBox(
@@ -142,33 +142,33 @@ class _HomePageState extends State<HomePage> {
                         children: <Widget> [
                           TextButton.icon(
                             onPressed: (){},
-                            icon: const Icon(
-                              Icons.thumb_up_outlined,
-                              color: Colors.white,
-                            ),
-                            label: const Text(
-                              "Like",
-                              style: TextStyle(
-                                  color: Colors.white
+                              icon: const Icon(
+                                Icons.thumb_up_outlined,
+                                color: Colors.white,
                               ),
-                            ),
+                              label: const Text(
+                                "Like",
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
                           ),
                           Row(
                             children: [
                               TextButton.icon(
-                                onPressed: (){
-                                  postId = int.parse(posts[index]['postId']);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => Comments(data: int.parse(posts[index]['postId'])))
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.comment_outlined,
-                                  color: Colors.white,
-                                ),
+                                  onPressed: (){
+                                    postId = int.parse(posts[index]['postId']);
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => Comments(data: int.parse(posts[index]['postId'])))
+                                    );
+                                  },
+                                  icon: const Icon(
+                                      Icons.comment_outlined,
+                                    color: Colors.white,
+                                  ),
                                 label: const Text(
-                                  "Comment",
+                                    "Comment",
                                   style: TextStyle(
                                       color: Colors.white
                                   ),
