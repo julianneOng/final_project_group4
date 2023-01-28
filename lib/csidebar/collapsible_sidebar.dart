@@ -35,7 +35,7 @@ class _NavBarState extends State<NavBar> {
     super.initState();
     getUsers();
   }
-
+  
 
   getUsers() async {
     var url = 'https://63c95a0e320a0c4c9546afb1.mockapi.io/api/users';
@@ -53,28 +53,28 @@ class _NavBarState extends State<NavBar> {
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
-              accountName: Text("${widget.data[0]['username']}"),
-              accountEmail: Text('${widget.data[0]['email']}'),
-              currentAccountPicture: CircleAvatar(
-                  child: Stack(
-                      children: [
-                        CircleAvatar(
-                          radius: 50,
-                          backgroundColor: Colors.black,
-                          child: ClipOval(
-                            child: SizedBox(
-                              width: 150.0,
-                              height: 100.0,
-                              child: Image.network(
-                                "${widget.data[0]['avatar']}",
-                                fit: BoxFit.fill,
-                              ),
-                            ),
+            accountName: Text("${widget.data[0]['username']}"),
+            accountEmail: Text('${widget.data[0]['email']}'),
+            currentAccountPicture: CircleAvatar(
+              child: Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundColor: Colors.black,
+                      child: ClipOval(
+                        child: SizedBox(
+                          width: 150.0,
+                          height: 100.0,
+                          child: Image.network(
+                            "${widget.data[0]['avatar']}",
+                            fit: BoxFit.fill,
                           ),
                         ),
-                      ]
-                  )
-              ),
+                      ),
+                    ),
+                  ]
+              )
+            ),
               decoration: const BoxDecoration(
                 color: Colors.greenAccent,
                 image: DecorationImage(
@@ -88,8 +88,8 @@ class _NavBarState extends State<NavBar> {
             title: const Text ('Home'),
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage(data: widget.data))
+                context,
+                MaterialPageRoute(builder: (context) => HomePage(data: widget.data))
               );
             },
           ),
