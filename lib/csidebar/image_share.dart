@@ -42,11 +42,10 @@ class _ImageShareState extends State<ImageShare> {
           itemCount: photos.length,
           itemBuilder: (context, index){
             return ListTile(
-              title: Image.network(
-                "${photos[index]['image']}",
-              ),
+              title: Text("${photos[index]['imageId']}"),
+              subtitle: Text("${photos[index]['image']}"),
             );
-          }),
+      }),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
           Navigator.push(
