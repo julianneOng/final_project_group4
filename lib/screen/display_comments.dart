@@ -1,79 +1,60 @@
+import 'package:finalproject/csidebar/image_upload.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
-class DisplayComments extends StatefulWidget {
 
-  final List data;
-  const DisplayComments({
-    required this.data,
-    Key? key}) : super(key: key);
+class ImageShare extends StatefulWidget {
+  const ImageShare({Key? key}) : super(key: key);
 
   @override
-  State<DisplayComments> createState() => _DisplayCommentsState();
+  State<ImageShare> createState() => _ImageShareState();
 }
 
-class _DisplayCommentsState extends State<DisplayComments> {
+class _ImageShareState extends State<ImageShare> {
 
-  List postComment = <dynamic>[];
-  int currentIndex = 0;
+  List photos = <dynamic>[];
+
 
   @override
   void initState() {
-    displayComments();
-    postComment;
+    getPhotos();
     super.initState();
   }
 
-  displayComments() async {
-    postComment = widget.data;
+  getPhotos() async {
+    var url = "https://63c95a0e320a0c4c9546afb1.mockapi.io/api/images_share";
+    var response = await http.get(Uri.parse(url));
+
+    setState(() {
+      photos = convert.jsonDecode(response.body) as List<dynamic>;
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Comments"),
+        title: const Text("Image Sharing"),
       ),
       body: ListView.builder(
-          itemCount: postComment.length,
+          itemCount: photos.length,
           itemBuilder: (context, index){
-            return Column(
-              children: <Widget>[
-                ListTile(
-                  leading: CircleAvatar(
-                    child: Image.network(
-                      "${postComment[index]['avatar']}",
-                    ),
-                  ),
-                  contentPadding: const EdgeInsets.all(0),
-                  title: Text(
-                    "${postComment[index]['alias']}",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  trailing: Text(
-                    "${postComment[index]['createdAt']}",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w300,
-                      fontSize: 11,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  title: Text(
-                      '${postComment[index]['comment']}'
-                  ),
-                ),
-                const Divider(
-                  height: 10,
-                  thickness: 2,
-                  indent: 5,
-                  endIndent: 5,
-                ),
-              ],
+            return ListTile(
+              title: Text("${photos[index]['imageId']}"),
+              subtitle: Text("${photos[index]['image']}"),
             );
-          }
-       ),
+      }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ImageUpload())
+          );
+        },
+        child: const Icon(Icons.image_outlined),
+      ),
     );
   }
 }
